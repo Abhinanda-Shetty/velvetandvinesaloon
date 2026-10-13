@@ -47,7 +47,7 @@ export function ScrollScissors() {
     window.addEventListener("resize", schedule);
     preference.addEventListener("change", schedule);
     return () => { cancelAnimationFrame(frame); window.removeEventListener("scroll", schedule); window.removeEventListener("resize", schedule); preference.removeEventListener("change", schedule); };
-  }, [x, y, scale, rotate, opacity]);
+  }, [enabled, x, y, scale, rotate, opacity]);
 
   if (!enabled) return null;
   return <motion.div aria-hidden="true" data-guide-target={target} className="scroll-scissors" style={{ x, y, scale, rotate, opacity }}><Suspense fallback={null}><SignatureScene /></Suspense></motion.div>;

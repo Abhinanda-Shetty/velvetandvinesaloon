@@ -25,7 +25,7 @@ export function Stylists({ onBook }: { onBook: (name: string) => void }) {
               onPointerEnter={(event) => { if (event.pointerType === "mouse" && window.matchMedia("(hover: hover)").matches) setFlipped(s.name); }}
               onPointerLeave={(event) => { if (event.pointerType === "mouse" && window.matchMedia("(hover: hover)").matches) setFlipped(null); }}
               onFocus={(event) => { if (event.target === event.currentTarget) setFlipped(s.name); }}
-              onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFlipped(null); }}
+              onBlur={(event) => { if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget)) setFlipped(null); }}
               onKeyDown={(event) => {
                 if (event.target === event.currentTarget && (event.key === "Enter" || event.key === " ")) {
                   event.preventDefault();
