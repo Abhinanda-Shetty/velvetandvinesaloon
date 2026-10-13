@@ -79,7 +79,7 @@
   --nav-surface: oklch(0.18 0.02 340 / 38%);
   --nav-surface-scrolled: oklch(0.18 0.02 340 / 52%);
   --nav-sheen: linear-gradient(120deg, oklch(0.94 0.02 85 / 7%), transparent 45%, oklch(0.74 0.075 80 / 4%));
-  --gradient-hero: linear-gradient(90deg, var(--background) 0%, oklch(0.16 0.008 330 / 92%) 30%, oklch(0.16 0.008 330 / 66%) 52%, oklch(0.16 0.008 330 / 34%) 78%, oklch(0.16 0.008 330 / 22%) 100%), linear-gradient(0deg, var(--background), transparent 40%);
+  --gradient-hero: linear-gradient(90deg, var(--background) 0%, oklch(0.16 0.008 330 / 94%) 30%, oklch(0.16 0.008 330 / 80%) 52%, oklch(0.16 0.008 330 / 52%) 72%, oklch(0.16 0.008 330 / 28%) 100%), linear-gradient(0deg, var(--background), transparent 40%);
   --gradient-cursor: linear-gradient(var(--cursor-angle, 120deg), oklch(0.34 0.08 355 / 20%), transparent 45%, oklch(0.71 0.04 130 / 9%) 75%, oklch(0.74 0.075 80 / 12%));
 
   --gradient-atmosphere:
