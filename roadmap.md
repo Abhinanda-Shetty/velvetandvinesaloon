@@ -1,5 +1,4 @@
-# Interaction update
-- [x] Flip stylist cards on hover with tap and keyboard access.
-- [x] Guide attention with scroll-following scissors.
-- [x] Add button and submission reactions and frosted navigation.
-- [x] Verify interactions, booking simulation, and responsive layout.
+# Directional motion refinement
+- [ ] Aim scissors at visible content with changing positions and angles.
+- [ ] Add visible moving gradients, interactive background, and animated grain.
+- [ ] Verify scrolling, cursor response, and reduced-motion behavior.
