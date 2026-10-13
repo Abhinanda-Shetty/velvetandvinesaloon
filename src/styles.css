@@ -242,7 +242,7 @@
 @keyframes sheen-flow { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
 @media (max-width: 767px) {
   .review-item { width: 300px; min-height: 350px; }
-  .hero-shade { background: linear-gradient(90deg, var(--background), color-mix(in oklab, var(--background) 70%, transparent)), linear-gradient(0deg, var(--background), transparent); }
+  .hero-shade { background: linear-gradient(90deg, var(--background) 0%, oklch(0.16 0.008 330 / 88%) 42%, oklch(0.16 0.008 330 / 30%) 88%), linear-gradient(0deg, var(--background), transparent 45%); }
 }
 @media (prefers-reduced-motion: reduce) {
   .atmosphere, .grain { animation: none; translate: none; transform: none; }
