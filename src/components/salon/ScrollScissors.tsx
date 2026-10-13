@@ -55,7 +55,7 @@ export function ScrollScissors() {
       const targetY = Math.min(window.innerHeight * 0.78, rect.top + Math.min(rect.height * 0.5, 90));
       // Position outside the content, then aim the blades' local +Y axis at it.
       const centerX = current.side === "left" ? 98 : window.innerWidth - 98;
-      const centerY = Math.max(190, Math.min(window.innerHeight - 130, targetY + (current.side === "left" ? 110 : -90)));
+      const centerY = Math.max(190, Math.min(window.innerHeight - 130, targetY + (current.side === "left" ? 145 : -155)));
       const angle = Math.atan2(targetY - centerY, targetX - centerX) * 180 / Math.PI + 90;
       const previousAngle = rotate.get();
       const shortestAngle = previousAngle + ((angle - previousAngle + 540) % 360 - 180);
