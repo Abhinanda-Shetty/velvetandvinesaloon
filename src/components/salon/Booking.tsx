@@ -140,7 +140,7 @@ export function Booking({ prefill }: { prefill: Prefill }) {
                 <input id="bk-phone" type="tel" className={fieldCls} value={form.phone} onChange={(e) => set("phone", e.target.value)} autoComplete="tel" placeholder="07700 900000" {...err("phone")} />
               </Field>
               <Field id="bk-service" label="Service" required error={errors.service}>
-                <Select value={form.service || undefined} onValueChange={(v) => set("service", v)}>
+                <Select value={form.service ? form.service : undefined} onValueChange={(v) => set("service", v)}>
                   <SelectTrigger
                     id="bk-service"
                     aria-label="Service"
