@@ -3,7 +3,7 @@ import { motion, useSpring } from "framer-motion";
 
 const SignatureScene = lazy(() => import("./SignatureScene"));
 const sections = [
-  { id: "services", selector: "article, h2", side: "right" },
+  { id: "services", selector: "[role='tabpanel'] li, [role='tablist'], h2", side: "right" },
   { id: "stylists", selector: ".stylist-card, h2", side: "left" },
   { id: "experience", selector: "h2, img", side: "right" },
   { id: "reviews", selector: "h2, .review-item", side: "left" },
@@ -47,13 +47,14 @@ export function ScrollScissors() {
         const box = element.getBoundingClientRect();
         return box.top > 110 && box.top < window.innerHeight * 0.78 && box.width > 0;
       });
-      const focus = visible.sort((a, b) => Math.abs(a.getBoundingClientRect().top - window.innerHeight * 0.42) - Math.abs(b.getBoundingClientRect().top - window.innerHeight * 0.42))[0];
+      const submit = current.id === "booking" ? visible.find((element) => element.matches("button[type='submit']")) : undefined;
+      const focus = submit ?? visible.sort((a, b) => Math.abs(a.getBoundingClientRect().top - window.innerHeight * 0.42) - Math.abs(b.getBoundingClientRect().top - window.innerHeight * 0.42))[0];
       if (!focus) { opacity.set(0.15); return; }
       const rect = focus.getBoundingClientRect();
       const targetX = rect.left + Math.min(rect.width * 0.5, 220);
       const targetY = Math.min(window.innerHeight * 0.78, rect.top + Math.min(rect.height * 0.5, 90));
       // Position outside the content, then aim the blades' local +Y axis at it.
-      const centerX = current.side === "left" ? 62 : window.innerWidth - 62;
+      const centerX = current.side === "left" ? 98 : window.innerWidth - 98;
       const centerY = Math.max(190, Math.min(window.innerHeight - 130, targetY + (current.side === "left" ? 110 : -90)));
       const angle = Math.atan2(targetY - centerY, targetX - centerX) * 180 / Math.PI + 90;
       const previousAngle = rotate.get();
