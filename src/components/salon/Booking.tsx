@@ -140,20 +140,42 @@ export function Booking({ prefill }: { prefill: Prefill }) {
                 <input id="bk-phone" type="tel" className={fieldCls} value={form.phone} onChange={(e) => set("phone", e.target.value)} autoComplete="tel" placeholder="07700 900000" {...err("phone")} />
               </Field>
               <Field id="bk-service" label="Service" required error={errors.service}>
-                <select id="bk-service" className={fieldCls} value={form.service} onChange={(e) => set("service", e.target.value)} {...err("service")}>
-                  <option value="">Select a service</option>
-                  {categories.map((c) => (
-                    <optgroup key={c.id} label={c.label}>
-                      {c.services.map((s) => <option key={s.name} value={s.name}>{s.name} — £{s.price}</option>)}
-                    </optgroup>
-                  ))}
-                </select>
+                <Select value={form.service || undefined} onValueChange={(v) => set("service", v)}>
+                  <SelectTrigger
+                    id="bk-service"
+                    aria-label="Service"
+                    className={cn(selectTriggerCls, errors.service && "border-destructive")}
+                    aria-invalid={!!errors.service}
+                    aria-describedby={errors.service ? "bk-service-err" : undefined}
+                  >
+                    <SelectValue placeholder="Select a service" />
+                  </SelectTrigger>
+                  <SelectContent className={selectContentCls} position="popper" sideOffset={6}>
+                    {categories.map((c) => (
+                      <SelectGroup key={c.id}>
+                        <SelectLabel className={selectLabelCls}>{c.label}</SelectLabel>
+                        {c.services.map((s) => (
+                          <SelectItem key={s.name} value={s.name} className={selectItemCls}>
+                            {s.name} — £{s.price}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    ))}
+                  </SelectContent>
+                </Select>
               </Field>
               <Field id="bk-stylist" label="Preferred stylist">
-                <select id="bk-stylist" className={fieldCls} value={form.stylist} onChange={(e) => set("stylist", e.target.value)}>
-                  <option>Any Available Stylist</option>
-                  {stylists.map((s) => <option key={s.name}>{s.name}</option>)}
-                </select>
+                <Select value={form.stylist} onValueChange={(v) => set("stylist", v)}>
+                  <SelectTrigger id="bk-stylist" aria-label="Preferred stylist" className={selectTriggerCls}>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className={selectContentCls} position="popper" sideOffset={6}>
+                    <SelectItem value="Any Available Stylist" className={selectItemCls}>Any Available Stylist</SelectItem>
+                    {stylists.map((s) => (
+                      <SelectItem key={s.name} value={s.name} className={selectItemCls}>{s.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </Field>
               <Field id="bk-date" label="Preferred date" required error={errors.date}>
                 <input id="bk-date" type="date" min={min || undefined} className={cn(fieldCls, "[color-scheme:dark]")} value={form.date} onChange={(e) => set("date", e.target.value)} {...err("date")} />
