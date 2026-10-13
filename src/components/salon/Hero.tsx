@@ -1,41 +1,14 @@
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { lazy, Suspense, useEffect, useState } from "react";
 import { ArrowDown, Scissors } from "lucide-react";
 import heroImg from "@/assets/hero.jpg";
 import { ease } from "@/data/salon";
 import { LuxButton, scrollToId } from "./ui";
 import { BlurText } from "./BlurText";
 
-const SignatureScene = lazy(() => import("./SignatureScene"));
-
-function canRender3D() {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
-  if (window.innerWidth < 768) return false;
-  try {
-    const c = document.createElement("canvas");
-    return !!(c.getContext("webgl2") || c.getContext("webgl"));
-  } catch {
-    return false;
-  }
-}
-
 export function Hero() {
   const reduce = useReducedMotion();
-  const [show3D, setShow3D] = useState(false);
   const { scrollY } = useScroll();
   const imgY = useTransform(scrollY, [0, 800], [0, reduce ? 0 : 80]);
-
-  useEffect(() => {
-    const update = () => setShow3D(canRender3D());
-    update();
-    window.addEventListener("resize", update);
-    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    preference.addEventListener("change", update);
-    return () => {
-      window.removeEventListener("resize", update);
-      preference.removeEventListener("change", update);
-    };
-  }, []);
 
   return (
     <section id="home" className="relative flex min-h-[min(850px,90svh)] items-center overflow-hidden pt-36 pb-20 sm:pt-44 sm:pb-28">
@@ -63,21 +36,6 @@ export function Hero() {
           </motion.div>
         </div>
 
-        <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[35%] items-center md:flex lg:w-[33%]">
-          {show3D && (
-            <motion.div
-              aria-hidden
-              className="h-[380px] w-full lg:h-[520px]"
-              initial={{ opacity: 0, scale: 0.6, rotate: -40 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ delay: 0.35, duration: 1.8, ease }}
-            >
-              <Suspense fallback={null}>
-                <SignatureScene />
-              </Suspense>
-            </motion.div>
-          )}
-        </div>
       </div>
 
       <LuxButton variant="line"

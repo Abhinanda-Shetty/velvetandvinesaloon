@@ -38,8 +38,8 @@ export function Navbar() {
       <nav
         aria-label="Main"
         className={cn(
-          "mx-auto flex max-w-7xl items-center justify-between rounded-md px-5 py-3 transition-all duration-700",
-          scrolled ? "glass" : "glass glass-light",
+          "nav-glass mx-auto flex max-w-7xl items-center justify-between rounded-md px-5 py-3 transition-all duration-700",
+          scrolled && "nav-glass-scrolled",
         )}
       >
         <button onClick={() => go("home")} aria-label="Velvet & Vine — back to top">

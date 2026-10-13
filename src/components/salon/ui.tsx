@@ -15,7 +15,7 @@ export const LuxButton = forwardRef<HTMLButtonElement, BtnProps>(function LuxBut
   ref,
 ) {
   const base =
-    "salon-button group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-sm px-7 py-4 text-[0.72rem] font-semibold uppercase transition-all duration-500 ease-[cubic-bezier(.22,1,.36,1)] disabled:opacity-50 disabled:pointer-events-none";
+    "salon-button group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-sm px-7 py-4 text-[0.72rem] font-semibold uppercase transition-all duration-500 ease-[cubic-bezier(.22,1,.36,1)] active:scale-95 disabled:opacity-70 disabled:pointer-events-none";
   const styles = {
     gold: "bg-primary text-primary-foreground hover:-translate-y-0.5 hover:shadow-deep",
     ghost: "border border-gold/40 text-foreground hover:border-gold hover:bg-gold/10",
