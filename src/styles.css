@@ -81,8 +81,7 @@
   --nav-sheen: linear-gradient(120deg, oklch(0.94 0.02 85 / 7%), transparent 45%, oklch(0.74 0.075 80 / 4%));
   --gradient-hero: linear-gradient(90deg, var(--background) 0%, oklch(0.16 0.008 330 / 94%) 30%, oklch(0.16 0.008 330 / 80%) 52%, oklch(0.16 0.008 330 / 52%) 72%, oklch(0.16 0.008 330 / 28%) 100%), linear-gradient(0deg, var(--background), transparent 40%);
   --gradient-cursor: linear-gradient(var(--cursor-angle, 120deg), oklch(0.34 0.08 355 / 20%), transparent 45%, oklch(0.71 0.04 130 / 9%) 75%, oklch(0.74 0.075 80 / 12%));
-  --experience-surface: oklch(0.22 0.027 160);
-  --gallery-caption: linear-gradient(0deg, oklch(0.12 0.012 160 / 95%), oklch(0.12 0.012 160 / 48%) 64%, transparent);
+  --gallery-caption: linear-gradient(0deg, color-mix(in oklab, var(--obsidian) 95%, transparent), color-mix(in oklab, var(--obsidian) 48%, transparent) 64%, transparent);
 
   --gradient-atmosphere:
     linear-gradient(125deg, oklch(0.34 0.08 355 / 55%), transparent 45%, oklch(0.26 0.03 160 / 65%) 80%),
@@ -244,7 +243,6 @@
     0 14px 30px -18px color-mix(in oklab, var(--obsidian) 92%, transparent);
 }
 .stylist-card { perspective: 1400px; min-width: 0; }
-.experience-section { background: var(--experience-surface); }
 .experience-carousel { --gallery-width: 224px; --gallery-radius: 218px; position: relative; }
 .experience-carousel-stage { height: 500px; position: relative; perspective: 1100px; }
 .experience-carousel-offset, .experience-carousel-ring { position: absolute; inset: 0; transform-style: preserve-3d; }
