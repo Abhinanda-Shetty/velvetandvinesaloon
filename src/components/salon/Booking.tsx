@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useAnimationControls, useReducedMotion } from "framer-motion";
 import { Check, LoaderCircle, X } from "lucide-react";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { allServices, categories, ease, stylists, timeSlots } from "@/data/salon";
@@ -49,7 +49,8 @@ export function Booking({ prefill }: { prefill: Prefill }) {
   const [submitting, setSubmitting] = useState(false);
   const [confirmed, setConfirmed] = useState<(Form & { ref: string; price: number }) | null>(null);
   const [min, setMin] = useState("");
-  const [invalidAttempt, setInvalidAttempt] = useState(0);
+  const feedback = useAnimationControls();
+  const reduce = useReducedMotion();
 
   useEffect(() => setMin(todayISO()), []);
   useEffect(() => {
@@ -70,7 +71,7 @@ export function Booking({ prefill }: { prefill: Prefill }) {
     const errs = validate(form, min || todayISO());
     setErrors(errs);
     if (Object.keys(errs).length) {
-      setInvalidAttempt((n) => n + 1);
+      if (!reduce) void feedback.start({ x: [0, -5, 5, -3, 3, 0], transition: { duration: 0.4 } });
       document.getElementById(`bk-${Object.keys(errs)[0]}`)?.focus();
       return;
     }
@@ -119,7 +120,7 @@ export function Booking({ prefill }: { prefill: Prefill }) {
         </Reveal>
 
         <Reveal className="lg:col-span-8" delay={0.1}>
-          <motion.form onSubmit={submit} noValidate className="glass rounded-md p-6 sm:p-10" animate={{ x: invalidAttempt ? [0, -5, 5, -3, 3, 0] : 0 }} transition={{ duration: 0.4 }} key={invalidAttempt} aria-busy={submitting}>
+          <motion.form onSubmit={submit} noValidate className="glass rounded-md p-6 sm:p-10" animate={feedback} aria-busy={submitting}>
             <div className="grid gap-6 sm:grid-cols-2">
               <Field id="bk-name" label="Full name" required error={errors.name}>
                 <input id="bk-name" className={fieldCls} value={form.name} onChange={(e) => set("name", e.target.value)} autoComplete="name" {...err("name")} />

@@ -37,7 +37,7 @@ export function ScrollScissors() {
       const heading = current.element.querySelector("h2");
       const rect = (heading || current.element).getBoundingClientRect();
       setTarget(current.id);
-      x.set(window.innerWidth - 190);
+      x.set(window.innerWidth - 132);
       y.set(Math.max(130, Math.min(window.innerHeight - 260, rect.top + rect.height / 2 - 160)));
       scale.set(0.44); rotate.set(-85); opacity.set(0.85);
     };
