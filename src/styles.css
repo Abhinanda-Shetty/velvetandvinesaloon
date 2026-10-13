@@ -71,13 +71,20 @@
   --border: oklch(0.74 0.075 80 / 18%);
   --input: oklch(0.94 0.02 85 / 14%);
   --ring: var(--gold);
+  --tool-metal: #e6e8e5;
+  --tool-gold: #c6a875;
+  --glass-surface: oklch(0.18 0.02 340 / 64%);
+  --glass-edge: oklch(0.74 0.075 80 / 16%);
+  --glass-highlight: oklch(0.94 0.02 85 / 8%);
+  --gradient-hero: linear-gradient(90deg, var(--background) 0%, oklch(0.16 0.008 330 / 91%) 28%, oklch(0.16 0.008 330 / 50%) 68%, oklch(0.16 0.008 330 / 25%) 100%), linear-gradient(0deg, var(--background), transparent 40%);
+  --gradient-cursor: linear-gradient(var(--cursor-angle, 120deg), oklch(0.34 0.08 355 / 20%), transparent 45%, oklch(0.71 0.04 130 / 9%) 75%, oklch(0.74 0.075 80 / 12%));
 
   --gradient-atmosphere:
     radial-gradient(60% 50% at 15% 10%, oklch(0.34 0.08 355 / 55%), transparent 70%),
     radial-gradient(50% 45% at 90% 35%, oklch(0.26 0.03 160 / 60%), transparent 70%),
     radial-gradient(70% 60% at 50% 100%, oklch(0.26 0.06 358 / 50%), transparent 70%),
     linear-gradient(180deg, var(--obsidian), var(--cherry));
-  --gradient-gold: linear-gradient(110deg, oklch(0.66 0.07 70), oklch(0.84 0.06 85), oklch(0.66 0.07 70));
+  --gradient-gold: linear-gradient(110deg, var(--gold), var(--ivory), var(--sage), var(--gold));
   --shadow-deep: 0 40px 80px -30px oklch(0.05 0.01 340 / 80%);
   --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -129,7 +136,7 @@
   font-family: var(--font-display);
   font-weight: 400;
   line-height: 0.92;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
 }
 
 @utility text-gold-sheen {
@@ -137,6 +144,8 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  background-size: 250% 100%;
+  animation: sheen-flow 9s ease-in-out infinite alternate;
 }
 
 @utility hairline {
@@ -146,11 +155,10 @@
 }
 
 @utility glass {
-  background: oklch(0.18 0.02 340 / 55%);
+  background: var(--glass-surface);
   backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
-  border: 1px solid oklch(0.74 0.075 80 / 16%);
-  box-shadow: inset 0 1px 0 oklch(0.94 0.02 85 / 8%), var(--shadow-deep);
+  border: 1px solid var(--glass-edge);
+  box-shadow: inset 0 1px 0 var(--glass-highlight), var(--shadow-deep);
 }
 
 @utility link-underline {
@@ -183,3 +191,36 @@
   100% { transform: translateY(200%); }
 }
 @utility animate-scrollcue { animation: scrollcue 2.2s var(--ease-lux) infinite; }
+
+.hero-shade { background: var(--gradient-hero); }
+.glass-light { background: color-mix(in oklab, var(--glass-surface) 55%, transparent); box-shadow: inset 0 1px 0 var(--glass-highlight); }
+.cursor-aurora {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: var(--gradient-cursor);
+  background-size: 120% 140%;
+  background-position: center var(--cursor-shift, 0%);
+  opacity: 0;
+  transition: opacity 1s;
+}
+.cursor-aurora[data-active="true"] { opacity: 1; }
+.salon-button { letter-spacing: 0; }
+.review-window { overflow: hidden; mask-image: linear-gradient(90deg, transparent, var(--foreground) 4%, var(--foreground) 96%, transparent); }
+.review-track { display: flex; width: max-content; animation: reviews-flow 65s linear infinite; }
+.review-group { display: flex; gap: 24px; padding-right: 24px; }
+.review-item { display: flex; flex-direction: column; width: 430px; min-height: 310px; }
+.review-track[data-paused="true"], .review-window:hover .review-track, .review-window:focus-within .review-track { animation-play-state: paused; }
+@keyframes reviews-flow { to { transform: translateX(-50%); } }
+@keyframes sheen-flow { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+@media (max-width: 767px) {
+  .review-item { width: 300px; min-height: 350px; }
+  .hero-shade { background: linear-gradient(90deg, var(--background), color-mix(in oklab, var(--background) 70%, transparent)), linear-gradient(0deg, var(--background), transparent); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cursor-aurora { display: none; }
+  .review-window { overflow-x: auto; mask-image: none; }
+  .review-track { animation: none; }
+  .review-group[aria-hidden="true"] { display: none; }
+}

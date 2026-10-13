@@ -2,9 +2,10 @@ import { motion, useReducedMotion } from "framer-motion";
 import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from "react";
 import { ease } from "@/data/salon";
 import { cn } from "@/lib/utils";
+import { BlurText } from "./BlurText";
 
 export function scrollToId(id: string) {
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  document.getElementById(id)?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
 }
 
 type BtnProps = ButtonHTMLAttributes<HTMLButtonElement> & { variant?: "gold" | "ghost" | "line" };
@@ -14,7 +15,7 @@ export const LuxButton = forwardRef<HTMLButtonElement, BtnProps>(function LuxBut
   ref,
 ) {
   const base =
-    "group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-sm px-7 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.24em] transition-all duration-500 ease-[cubic-bezier(.22,1,.36,1)] disabled:opacity-50 disabled:pointer-events-none";
+    "salon-button group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-sm px-7 py-4 text-[0.72rem] font-semibold uppercase transition-all duration-500 ease-[cubic-bezier(.22,1,.36,1)] disabled:opacity-50 disabled:pointer-events-none";
   const styles = {
     gold: "bg-primary text-primary-foreground hover:-translate-y-0.5 hover:shadow-deep",
     ghost: "border border-gold/40 text-foreground hover:border-gold hover:bg-gold/10",
@@ -46,8 +47,8 @@ export function SectionHeading({ eyebrow, title, copy, align = "left" }: { eyebr
   return (
     <Reveal className={cn("max-w-3xl", align === "center" && "mx-auto text-center")}>
       <p className="eyebrow mb-6">{eyebrow}</p>
-      <h2 className="display text-5xl sm:text-6xl lg:text-7xl">{title}</h2>
-      {copy && <p className={cn("mt-6 max-w-xl text-base leading-relaxed text-muted-foreground", align === "center" && "mx-auto")}>{copy}</p>}
+      <motion.h2 className="display text-5xl sm:text-6xl lg:text-7xl" initial={{ filter: "blur(8px)" }} whileInView={{ filter: "blur(0px)" }} viewport={{ once: true }} transition={{ duration: 1, ease }}>{title}</motion.h2>
+      {copy && <p className={cn("mt-6 max-w-xl text-base leading-relaxed text-muted-foreground", align === "center" && "mx-auto")}><BlurText text={copy} /></p>}
     </Reveal>
   );
 }

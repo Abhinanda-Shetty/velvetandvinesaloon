@@ -39,7 +39,7 @@ export function Navbar() {
         aria-label="Main"
         className={cn(
           "mx-auto flex max-w-7xl items-center justify-between rounded-md px-5 py-3 transition-all duration-700",
-          scrolled ? "glass" : "border border-transparent",
+          scrolled ? "glass" : "glass glass-light",
         )}
       >
         <button onClick={() => go("home")} aria-label="Velvet & Vine — back to top">
