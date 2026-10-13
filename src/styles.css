@@ -81,6 +81,8 @@
   --nav-sheen: linear-gradient(120deg, oklch(0.94 0.02 85 / 7%), transparent 45%, oklch(0.74 0.075 80 / 4%));
   --gradient-hero: linear-gradient(90deg, var(--background) 0%, oklch(0.16 0.008 330 / 94%) 30%, oklch(0.16 0.008 330 / 80%) 52%, oklch(0.16 0.008 330 / 52%) 72%, oklch(0.16 0.008 330 / 28%) 100%), linear-gradient(0deg, var(--background), transparent 40%);
   --gradient-cursor: linear-gradient(var(--cursor-angle, 120deg), oklch(0.34 0.08 355 / 20%), transparent 45%, oklch(0.71 0.04 130 / 9%) 75%, oklch(0.74 0.075 80 / 12%));
+  --experience-surface: oklch(0.22 0.027 160);
+  --gallery-caption: linear-gradient(0deg, oklch(0.12 0.012 160 / 95%), oklch(0.12 0.012 160 / 48%) 64%, transparent);
 
   --gradient-atmosphere:
     linear-gradient(125deg, oklch(0.34 0.08 355 / 55%), transparent 45%, oklch(0.26 0.03 160 / 65%) 80%),
@@ -242,6 +244,29 @@
     0 14px 30px -18px color-mix(in oklab, var(--obsidian) 92%, transparent);
 }
 .stylist-card { perspective: 1400px; min-width: 0; }
+.experience-section { background: var(--experience-surface); }
+.experience-carousel { --gallery-width: 224px; --gallery-radius: 218px; position: relative; }
+.experience-carousel-stage { height: 500px; position: relative; perspective: 1100px; }
+.experience-carousel-offset, .experience-carousel-ring { position: absolute; inset: 0; transform-style: preserve-3d; }
+.experience-carousel-offset { transform: rotateY(var(--gallery-offset, 0deg)); transition: transform 0.8s var(--ease-lux); }
+.experience-carousel-ring { animation: experience-revolve 42s linear infinite; }
+.experience-carousel-slot { position: absolute; left: calc(50% - var(--gallery-width) / 2); top: 70px; width: var(--gallery-width); height: 330px; transform-style: preserve-3d; transform: rotateY(var(--gallery-angle)) translateZ(var(--gallery-radius)); backface-visibility: hidden; }
+.experience-carousel-card { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--glass-edge); box-shadow: var(--shadow-deep); backface-visibility: hidden; transition: transform 0.55s var(--ease-lux), border-color 0.55s; }
+.experience-carousel-card img { width: 100%; height: 100%; object-fit: cover; }
+.experience-carousel-card figcaption { position: absolute; inset: auto 0 0; padding: 45px 20px 24px; background: var(--gallery-caption); }
+.experience-carousel-card:hover, .experience-carousel-card:focus-visible { transform: translateZ(20px) translateY(-12px) scale(1.035); border-color: var(--gold); }
+.experience-carousel[data-paused="true"] .experience-carousel-ring, .experience-carousel-stage:hover .experience-carousel-ring, .experience-carousel-stage:focus-within .experience-carousel-ring { animation-play-state: paused; }
+@keyframes experience-revolve { to { transform: rotateY(-360deg); } }
+@media (max-width: 639px) {
+  .experience-carousel { --gallery-width: 190px; --gallery-radius: 186px; }
+  .experience-carousel-stage { height: 420px; perspective: 1000px; }
+  .experience-carousel-slot { top: 60px; height: 280px; }
+}
+.experience-carousel[data-reduced="true"] .experience-carousel-stage { height: auto; perspective: none; }
+.experience-carousel[data-reduced="true"] .experience-carousel-offset, .experience-carousel[data-reduced="true"] .experience-carousel-ring { position: relative; transform: none; animation: none; }
+.experience-carousel[data-reduced="true"] .experience-carousel-ring { display: flex; gap: 16px; overflow-x: auto; padding: 12px 0 24px; }
+.experience-carousel[data-reduced="true"] .experience-carousel-slot { position: relative; top: auto; left: auto; transform: none; flex: 0 0 var(--gallery-width); }
+.experience-carousel[data-reduced="true"] .experience-carousel-slot[aria-hidden="true"] { display: none; }
 .stylist-card-inner { position: relative; width: 100%; min-height: 490px; aspect-ratio: 3 / 4; transform-style: preserve-3d; transition: transform 0.95s var(--ease-lux); }
 .stylist-card[data-flipped="true"] .stylist-card-inner { transform: rotateY(180deg); }
 .stylist-card-face { position: absolute; inset: 0; backface-visibility: hidden; }
