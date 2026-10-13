@@ -1,4 +1,5 @@
-# Animation update
-- [x] Add salon-tool opening and scroll response.
-- [x] Integrate React Bits text and cursor/gradient motion with subtle glass navigation.
-- [x] Add continuous testimonials and verify desktop, mobile, and reduced motion.
+# Interaction update
+- [ ] Flip stylist cards on hover with tap and keyboard access.
+- [ ] Guide attention with scroll-following scissors.
+- [ ] Add button and submission reactions and frosted navigation.
+- [ ] Verify interactions, booking simulation, and responsive layout.
