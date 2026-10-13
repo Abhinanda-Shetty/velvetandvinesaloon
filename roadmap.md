@@ -7,3 +7,8 @@
 - [x] Stop the selected category label from rendering dark-on-dark.
 - [x] Give the selected tab a soft glass highlight (tinted frosted panel, gold edge, brighter label).
 - [x] Verify by clicking, keyboard focus, and pixel sampling that the selected tab reads as the most prominent.
+
+# Experience gallery
+- [ ] Replace the overlapping photos with a premium rotating salon gallery.
+- [ ] Add hover lift and pause, keyboard access, and reduced-motion support.
+- [ ] Verify layout and gallery interactions at multiple screen sizes.
