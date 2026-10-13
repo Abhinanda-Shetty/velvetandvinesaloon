@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Pause, Play } from "lucide-react";
 import { LuxButton } from "./ui";
 
@@ -7,16 +7,24 @@ export type CircularCarouselItem = { src: string; alt: string; title: string; su
 
 export function CircularCarousel({ items }: { items: CircularCarouselItem[] }) {
   const ref = useRef<HTMLDivElement>(null);
-  const reduced = useReducedMotion();
+  const [reduced, setReduced] = useState(false);
   const [visible, setVisible] = useState(false);
   const [paused, setPaused] = useState(false);
   const [offset, setOffset] = useState(0);
   const slides = [...items, ...items];
 
   useEffect(() => {
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduced(preference.matches);
+    update();
+    preference.addEventListener("change", update);
+    return () => preference.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
     const element = ref.current;
     if (!element) return;
-    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), { threshold: 0.1 });
+    const observer = new IntersectionObserver(([entry]) => setVisible(entry?.isIntersecting ?? false), { threshold: 0.1 });
     observer.observe(element);
     return () => observer.disconnect();
   }, []);
