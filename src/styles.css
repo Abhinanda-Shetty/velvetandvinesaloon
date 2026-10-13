@@ -211,7 +211,7 @@
 .glass-light { background: color-mix(in oklab, var(--glass-surface) 55%, transparent); box-shadow: inset 0 1px 0 var(--glass-highlight); }
 .cursor-aurora {
   position: fixed;
-  inset: 0;
+  inset: -8%;
   z-index: 2;
   pointer-events: none;
   background: var(--gradient-cursor);
