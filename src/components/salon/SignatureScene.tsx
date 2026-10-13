@@ -8,6 +8,8 @@ function Shears({ metal, gold }: { metal: string; gold: string }) {
   const group = useRef<THREE.Group>(null);
   const left = useRef<THREE.Group>(null);
   const right = useRef<THREE.Group>(null);
+  const previousScroll = useRef(0);
+  const scrollEnergy = useRef(0);
   const blade = useMemo(() => {
     const shape = new THREE.Shape();
     shape.moveTo(-0.11, -0.1);
@@ -22,18 +24,21 @@ function Shears({ metal, gold }: { metal: string; gold: string }) {
     const g = group.current;
     if (!g) return;
     const dt = Math.min(delta, 0.05);
-    const progress = Math.min(window.scrollY / window.innerHeight, 1);
-    const opening = 0.14 + progress * 0.45 + Math.sin(state.clock.elapsedTime * 1.2) * 0.07;
-    if (left.current) left.current.rotation.z = opening;
-    if (right.current) right.current.rotation.z = -opening;
-    g.rotation.y += (state.pointer.x * 0.45 + progress * 0.8 - g.rotation.y) * (1 - Math.exp(-3 * dt));
-    g.rotation.x += (state.pointer.y * 0.25 - g.rotation.x) * (1 - Math.exp(-3 * dt));
-    g.rotation.z = -0.55 + progress * 0.8;
+    const distance = Math.abs(window.scrollY - previousScroll.current);
+    previousScroll.current = window.scrollY;
+    scrollEnergy.current = Math.max(Math.min(distance / 60, 1), scrollEnergy.current * Math.exp(-5 * dt));
+    const opening = 0.12 + scrollEnergy.current * 0.32 + Math.sin(state.clock.elapsedTime * 1.2) * 0.035;
+    const blend = 1 - Math.exp(-7 * dt);
+    if (left.current) left.current.rotation.z += (opening - left.current.rotation.z) * blend;
+    if (right.current) right.current.rotation.z += (-opening - right.current.rotation.z) * blend;
+    g.rotation.y += (state.pointer.x * 0.18 - g.rotation.y) * blend;
+    g.rotation.x += (state.pointer.y * 0.1 - g.rotation.x) * blend;
+    g.rotation.z = 0;
     g.position.y = Math.sin(state.clock.elapsedTime * 0.8) * 0.08;
   });
 
   return (
-    <group ref={group} rotation={[0, 0, -0.55]}>
+    <group ref={group}>
       {[0, 1].map((side) => (
         <group key={side} ref={side === 0 ? left : right} position={[0, 0, side * 0.09]}>
           <mesh geometry={blade}>
