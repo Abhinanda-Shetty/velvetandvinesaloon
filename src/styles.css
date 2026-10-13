@@ -76,6 +76,9 @@
   --glass-surface: oklch(0.18 0.02 340 / 64%);
   --glass-edge: oklch(0.74 0.075 80 / 16%);
   --glass-highlight: oklch(0.94 0.02 85 / 8%);
+  --nav-surface: oklch(0.18 0.02 340 / 38%);
+  --nav-surface-scrolled: oklch(0.18 0.02 340 / 52%);
+  --nav-sheen: linear-gradient(120deg, oklch(0.94 0.02 85 / 7%), transparent 45%, oklch(0.74 0.075 80 / 4%));
   --gradient-hero: linear-gradient(90deg, var(--background) 0%, oklch(0.16 0.008 330 / 91%) 28%, oklch(0.16 0.008 330 / 50%) 68%, oklch(0.16 0.008 330 / 25%) 100%), linear-gradient(0deg, var(--background), transparent 40%);
   --gradient-cursor: linear-gradient(var(--cursor-angle, 120deg), oklch(0.34 0.08 355 / 20%), transparent 45%, oklch(0.71 0.04 130 / 9%) 75%, oklch(0.74 0.075 80 / 12%));
 
@@ -207,6 +210,18 @@
 }
 .cursor-aurora[data-active="true"] { opacity: 1; }
 .salon-button { letter-spacing: 0; }
+.salon-button::before { content: ""; position: absolute; inset: 0; background: var(--gradient-gold); opacity: 0; transform: translateX(-100%); transition: transform 0.8s var(--ease-lux), opacity 0.8s; pointer-events: none; }
+.salon-button:hover::before { transform: translateX(100%); opacity: 0.18; }
+.nav-glass { background: var(--nav-sheen), var(--nav-surface); backdrop-filter: blur(28px) saturate(155%); border: 1px solid var(--glass-edge); box-shadow: inset 0 1px 0 var(--glass-highlight), var(--shadow-deep); }
+.nav-glass-scrolled { background: var(--nav-sheen), var(--nav-surface-scrolled); }
+.stylist-card { perspective: 1400px; }
+.stylist-card-inner { position: relative; min-height: 490px; aspect-ratio: 3 / 4; transform-style: preserve-3d; transition: transform 0.95s var(--ease-lux); }
+.stylist-card[data-flipped="true"] .stylist-card-inner { transform: rotateY(180deg); }
+.stylist-card-face { position: absolute; inset: 0; backface-visibility: hidden; }
+.stylist-card-front { transform: rotateY(0deg); }
+.stylist-card-back { transform: rotateY(180deg); display: flex; flex-direction: column; overflow-y: auto; }
+.scroll-scissors { position: fixed; top: 0; left: 0; width: 280px; height: 320px; z-index: 20; pointer-events: none; transform-origin: center; }
+@media (max-width: 1023px) { .scroll-scissors { display: none; } }
 .review-window { overflow: hidden; mask-image: linear-gradient(90deg, transparent, var(--foreground) 4%, var(--foreground) 96%, transparent); }
 .review-track { display: flex; width: max-content; animation: reviews-flow 65s linear infinite; }
 .review-group { display: flex; gap: 24px; padding-right: 24px; }

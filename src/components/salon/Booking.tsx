@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Check, X } from "lucide-react";
+import { Check, LoaderCircle, X } from "lucide-react";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { allServices, categories, ease, stylists, timeSlots } from "@/data/salon";
 import { cn } from "@/lib/utils";
@@ -49,6 +49,7 @@ export function Booking({ prefill }: { prefill: Prefill }) {
   const [submitting, setSubmitting] = useState(false);
   const [confirmed, setConfirmed] = useState<(Form & { ref: string; price: number }) | null>(null);
   const [min, setMin] = useState("");
+  const [invalidAttempt, setInvalidAttempt] = useState(0);
 
   useEffect(() => setMin(todayISO()), []);
   useEffect(() => {
@@ -69,6 +70,7 @@ export function Booking({ prefill }: { prefill: Prefill }) {
     const errs = validate(form, min || todayISO());
     setErrors(errs);
     if (Object.keys(errs).length) {
+      setInvalidAttempt((n) => n + 1);
       document.getElementById(`bk-${Object.keys(errs)[0]}`)?.focus();
       return;
     }
@@ -117,7 +119,7 @@ export function Booking({ prefill }: { prefill: Prefill }) {
         </Reveal>
 
         <Reveal className="lg:col-span-8" delay={0.1}>
-          <form onSubmit={submit} noValidate className="glass rounded-md p-6 sm:p-10">
+          <motion.form onSubmit={submit} noValidate className="glass rounded-md p-6 sm:p-10" animate={{ x: invalidAttempt ? [0, -5, 5, -3, 3, 0] : 0 }} transition={{ duration: 0.4 }} key={invalidAttempt} aria-busy={submitting}>
             <div className="grid gap-6 sm:grid-cols-2">
               <Field id="bk-name" label="Full name" required error={errors.name}>
                 <input id="bk-name" className={fieldCls} value={form.name} onChange={(e) => set("name", e.target.value)} autoComplete="name" {...err("name")} />
@@ -153,7 +155,7 @@ export function Booking({ prefill }: { prefill: Prefill }) {
               <legend className={labelCls}>Preferred time <span className="text-gold" aria-hidden>*</span></legend>
               <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
                 {timeSlots.map((t) => (
-                  <button
+                  <LuxButton
                     key={t}
                     id={t === timeSlots[0] ? "bk-time" : undefined}
                     type="button"
@@ -162,7 +164,7 @@ export function Booking({ prefill }: { prefill: Prefill }) {
                     className={cn("rounded-sm border py-3 text-sm transition-all", form.time === t ? "border-gold bg-gold text-primary-foreground" : "border-input hover:border-gold/60")}
                   >
                     {t}
-                  </button>
+                  </LuxButton>
                 ))}
               </div>
               {errors.time && <p id="bk-time-err" className="mt-2 text-xs text-destructive">{errors.time}</p>}
@@ -176,9 +178,9 @@ export function Booking({ prefill }: { prefill: Prefill }) {
 
             <div className="mt-8 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
               <p className="max-w-xs text-xs text-muted-foreground">This sends a booking request. Our team will confirm availability with you directly.</p>
-              <LuxButton type="submit" disabled={submitting} className="w-full sm:w-auto">{submitting ? "Sending request…" : "Request Appointment"}</LuxButton>
+              <LuxButton type="submit" disabled={submitting} className="w-full min-w-60 sm:w-auto">{submitting && <LoaderCircle size={17} className="animate-spin" aria-hidden />}{submitting ? "Preparing request…" : "Request Appointment"}</LuxButton>
             </div>
-          </form>
+          </motion.form>
         </Reveal>
       </div>
 
