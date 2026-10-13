@@ -9,8 +9,8 @@ function ServiceItem({ s, onBook }: { s: Service; onBook: (s: Service) => void }
   const [open, setOpen] = useState(false);
   return (
     <li className="group relative border-b border-border">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-wine/0 via-wine/20 to-wine/0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-      <div className="flex items-center gap-4 px-2 py-6 sm:px-4">
+      <div className="absolute inset-0 bg-gradient-to-r from-wine/0 via-wine/20 to-wine/0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+      <div className="relative flex items-center gap-4 px-2 py-6 sm:px-4">
         <button className="flex flex-1 items-start gap-4 text-left sm:pointer-events-none" onClick={() => setOpen((o) => !o)} aria-expanded={open}>
           <div className="flex-1">
             <h3 className="display text-2xl sm:text-3xl">
@@ -50,12 +50,12 @@ export function Services({ onBook }: { onBook: (s: Service) => void }) {
                 aria-selected={active === c.id}
                 onClick={() => setActive(c.id)}
                 className={cn(
-                  "relative shrink-0 rounded-sm px-5 py-3 text-[0.7rem] uppercase tracking-[0.22em] transition-colors",
-                  active === c.id ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground",
+                  "relative shrink-0 rounded-sm px-5 py-3 text-[0.7rem] uppercase tracking-[0.22em] transition-colors duration-500",
+                  active === c.id ? "text-gold" : "text-muted-foreground hover:text-foreground",
                 )}
               >
-                {active === c.id && <motion.span layoutId="cat-pill" className="absolute inset-0 -z-10 rounded-sm bg-primary" transition={{ duration: 0.5, ease }} />}
-                {c.label}
+                {active === c.id && <motion.span layoutId="cat-pill" className="tab-pill absolute inset-0 rounded-sm" transition={{ duration: 0.5, ease }} />}
+                <span className="relative">{c.label}</span>
               </button>
             ))}
           </div>
