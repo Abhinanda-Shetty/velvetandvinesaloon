@@ -1,6 +1,6 @@
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown, Scissors } from "lucide-react";
-import heroImg from "@/assets/hero.jpg";
+import heroImg from "@/assets/hero-interior.jpg";
 import { ease } from "@/data/salon";
 import { LuxButton, scrollToId } from "./ui";
 import { BlurText } from "./BlurText";
@@ -12,7 +12,7 @@ export function Hero() {
 
   return (
     <section id="home" className="relative flex min-h-[min(850px,90svh)] items-center overflow-hidden pt-36 pb-20 sm:pt-44 sm:pb-28">
-      <motion.img src={heroImg} alt="Glossy auburn waves styled at Velvet & Vine" width={1024} height={1344} style={{ y: imgY }} className="absolute inset-0 h-[115%] w-full object-cover object-[65%_35%]" initial={reduce ? false : { scale: 1.08 }} animate={{ scale: 1 }} transition={{ duration: 2, ease }} />
+      <motion.img src={heroImg} alt="Warm-lit salon interior with styling stations, mirrors and a leather lounge" width={1672} height={941} style={{ y: imgY }} className="absolute inset-0 h-[115%] w-full object-cover object-[62%_48%]" initial={reduce ? false : { scale: 1.08 }} animate={{ scale: 1 }} transition={{ duration: 2, ease }} />
       <div className="hero-shade absolute inset-0" />
       <div className="mx-auto grid w-full max-w-7xl items-center gap-6 px-6 lg:grid-cols-12">
         <div className="relative z-10 lg:col-span-8">
