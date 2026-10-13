@@ -85,7 +85,7 @@ export function Hero() {
           {show3D && (
             <motion.div
               aria-hidden
-              className="pointer-events-none absolute -left-40 top-1/2 h-[420px] w-[420px] -translate-y-1/2 xl:-left-52 xl:h-[480px] xl:w-[480px]"
+              className="pointer-events-none absolute -left-36 bottom-[-4rem] h-[340px] w-[340px] xl:-left-44 xl:h-[400px] xl:w-[400px]"
               initial={{ opacity: 0, scale: 0.8, rotate: -20 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ delay: 1.4, duration: 2, ease }}

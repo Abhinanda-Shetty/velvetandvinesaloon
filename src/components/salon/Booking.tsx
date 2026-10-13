@@ -31,7 +31,7 @@ function validate(f: Form, min: string) {
 const fieldCls = "w-full rounded-sm border border-input bg-background/40 px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:border-gold focus:outline-none";
 const labelCls = "mb-2 block text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-muted-foreground";
 
-function Field({ id, label, required, error, children }: { id: string; label: string; required?: boolean; error?: string; children: React.ReactNode }) {
+function Field({ id, label, required, error, children }: { id: string; label: string; required?: boolean; error?: string | undefined; children: React.ReactNode }) {
   return (
     <div>
       <label htmlFor={id} className={labelCls}>
@@ -54,7 +54,7 @@ export function Booking({ prefill }: { prefill: Prefill }) {
   useEffect(() => {
     if (!prefill.nonce) return;
     setForm((f) => ({ ...f, ...(prefill.service && { service: prefill.service }), ...(prefill.stylist && { stylist: prefill.stylist }) }));
-    setErrors((e) => ({ ...e, service: prefill.service ? undefined : e.service }));
+    if (prefill.service) setErrors(({ service: _s, ...rest }) => rest);
   }, [prefill]);
 
   const set = <K extends keyof Form>(k: K, v: Form[K]) => {

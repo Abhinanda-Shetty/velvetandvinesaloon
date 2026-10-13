@@ -33,8 +33,8 @@ function ServiceItem({ s, onBook }: { s: Service; onBook: (s: Service) => void }
 }
 
 export function Services({ onBook }: { onBook: (s: Service) => void }) {
-  const [active, setActive] = useState(categories[0].id);
-  const cat = categories.find((c) => c.id === active)!;
+  const [active, setActive] = useState(categories[0]!.id);
+  const cat = categories.find((c) => c.id === active) ?? categories[0]!;
 
   return (
     <section id="services" className="relative py-28 sm:py-36">

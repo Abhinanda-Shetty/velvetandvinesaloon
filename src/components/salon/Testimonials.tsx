@@ -8,7 +8,7 @@ import { Reveal } from "./ui";
 export function Testimonials() {
   const [[i, dir], setState] = useState([0, 1]);
   const go = (d: number) => setState(([cur]) => [(cur + d + testimonials.length) % testimonials.length, d]);
-  const t = testimonials[i];
+  const t = testimonials[i] ?? testimonials[0]!;
 
   return (
     <section id="reviews" className="relative py-28 sm:py-36" aria-roledescription="carousel" aria-label="Guest testimonials">
