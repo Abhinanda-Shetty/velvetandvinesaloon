@@ -1,6 +1,7 @@
 import { AnimatePresence, motion, useAnimationControls, useReducedMotion } from "framer-motion";
-import { Check, LoaderCircle, X } from "lucide-react";
+import { Check, ChevronDown, LoaderCircle, X } from "lucide-react";
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { allServices, categories, ease, stylists, timeSlots } from "@/data/salon";
 import { cn } from "@/lib/utils";
 import { LuxButton, Reveal } from "./ui";
@@ -29,6 +30,13 @@ function validate(f: Form, min: string) {
 }
 
 const fieldCls = "w-full rounded-sm border border-input bg-background/40 px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:border-gold focus:outline-none";
+const selectTriggerCls = cn(
+  fieldCls,
+  "flex h-auto cursor-pointer items-center justify-between gap-3 text-left [&>svg:last-child]:h-4 [&>svg:last-child]:w-4 [&>svg:last-child]:text-gold [&>svg:last-child]:opacity-90",
+);
+const selectContentCls = "max-h-72 overflow-y-auto rounded-sm border border-gold/25 bg-obsidian/90 text-foreground shadow-deep backdrop-blur-xl";
+const selectItemCls = "cursor-pointer rounded-sm pr-8 text-sm text-foreground/90 transition-colors data-[highlighted]:bg-wine/45 data-[highlighted]:text-ivory data-[state=checked]:text-gold";
+const selectLabelCls = "px-2 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-sage";
 const labelCls = "mb-2 block text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-muted-foreground";
 
 function Field({ id, label, required, error, children }: { id: string; label: string; required?: boolean; error?: string | undefined; children: React.ReactNode }) {
