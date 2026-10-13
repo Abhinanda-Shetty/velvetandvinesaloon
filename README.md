@@ -1,29 +1,12 @@
-# Welcome to your Lovable project
+# Velvet & Vine Salon
 
-This project was built with [Lovable](https://lovable.dev).
+Frontend-only luxury salon site (TanStack Start + React 19, Tailwind v4, Framer Motion, React Three Fiber).
 
-## Build with Lovable
+- Install: `bun install` · Run: `bun run dev`
+- Content lives in `src/data/salon.ts`.
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+## Placeholder content (replace before launch)
+- Address, phone, email, opening hours, social links.
+- Service prices are illustrative.
+- Stylists and testimonials are illustrative samples, not real people or verified reviews.
+- Booking form only simulates a request; nothing is sent or reserved.
