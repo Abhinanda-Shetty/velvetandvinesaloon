@@ -51,7 +51,7 @@ export function Services({ onBook }: { onBook: (s: Service) => void }) {
                 onClick={() => setActive(c.id)}
                 className={cn(
                   "relative shrink-0 rounded-sm px-5 py-3 text-[0.7rem] uppercase tracking-[0.22em] transition-colors duration-500",
-                  active === c.id ? "text-gold" : "text-muted-foreground hover:text-foreground",
+                  active === c.id ? "text-ivory" : "text-muted-foreground hover:text-foreground",
                 )}
               >
                 {active === c.id && <motion.span layoutId="cat-pill" className="tab-pill absolute inset-0 rounded-sm" transition={{ duration: 0.5, ease }} />}
