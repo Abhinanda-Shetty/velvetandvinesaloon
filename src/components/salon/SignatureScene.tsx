@@ -70,7 +70,7 @@ export default function SignatureScene() {
   }, []);
   if (!palette) return null;
   return (
-    <Canvas dpr={[1, 1.5]} camera={{ position: [0, 0.4, 8], fov: 38 }} gl={{ antialias: true, alpha: true }} eventSource={document.body} eventPrefix="client">
+    <Canvas dpr={[1, 1.25]} camera={{ position: [0, 0.4, 8], fov: 38 }} gl={{ antialias: true, alpha: true }} eventSource={document.body} eventPrefix="client">
       <ambientLight intensity={0.8} />
       <directionalLight position={[3, 5, 4]} intensity={3} />
       <pointLight position={[-4, -2, 2]} intensity={15} color={palette.gold} />

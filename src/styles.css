@@ -117,10 +117,12 @@
   pointer-events: none;
   background: var(--gradient-atmosphere);
   background-size: 180% 180%;
-  background-position: 20% var(--atmosphere-scroll, 0%);
+  background-position: 20% 30%;
   translate: var(--atmosphere-x, 0%) var(--atmosphere-y, 0%);
   transition: translate 1.4s var(--ease-lux);
-  animation: drift 18s ease-in-out infinite alternate, atmosphere-flow 24s ease-in-out infinite alternate;
+  will-change: transform, translate;
+  contain: strict;
+  animation: drift 24s ease-in-out infinite alternate;
 }
 
 @utility grain {
@@ -129,9 +131,10 @@
   z-index: 3;
   pointer-events: none;
   opacity: 0.045;
-  mix-blend-mode: soft-light;
-  animation: grain-shift 0.7s steps(3) infinite;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  will-change: transform;
+  contain: strict;
+  animation: grain-shift 1.6s steps(3) infinite;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 @utility eyebrow {
@@ -208,18 +211,20 @@
 .glass-light { background: color-mix(in oklab, var(--glass-surface) 55%, transparent); box-shadow: inset 0 1px 0 var(--glass-highlight); }
 .cursor-aurora {
   position: fixed;
-  inset: 0;
+  inset: -8%;
   z-index: 2;
   pointer-events: none;
   background: var(--gradient-cursor);
   background-size: 120% 140%;
-  background-position: center var(--cursor-shift, 0%);
+  background-position: center;
   opacity: 0.45;
-  animation: aurora-flow 16s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+  contain: strict;
+  animation: aurora-flow 20s ease-in-out infinite alternate;
   transition: opacity 1s;
 }
 .cursor-aurora[data-active="true"] { opacity: 1; }
-@keyframes aurora-flow { from { background-position: 0% var(--cursor-shift, 0%); } to { background-position: 100% 80%; } }
+@keyframes aurora-flow { from { transform: translate3d(-3%, -2%, 0); } to { transform: translate3d(3%, 3%, 0); } }
 .salon-button { letter-spacing: 0; }
 .salon-button::before { content: ""; position: absolute; inset: 0; background: var(--gradient-gold); opacity: 0; transform: translateX(-100%); transition: transform 0.8s var(--ease-lux), opacity 0.8s; pointer-events: none; }
 .salon-button:hover::before { transform: translateX(100%); opacity: 0.18; }
