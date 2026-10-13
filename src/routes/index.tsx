@@ -10,6 +10,7 @@ import { Booking, type Prefill } from "@/components/salon/Booking";
 import { Contact, Footer } from "@/components/salon/Contact";
 import { scrollToId } from "@/components/salon/ui";
 import { CursorAurora } from "@/components/salon/CursorAurora";
+import { ScrollScissors } from "@/components/salon/ScrollScissors";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -37,6 +38,7 @@ function Index() {
       <div className="atmosphere" aria-hidden />
       <div className="grain" aria-hidden />
       <CursorAurora />
+      <ScrollScissors />
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[70] focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground">Skip to content</a>
       <Navbar />
       <main id="main">
