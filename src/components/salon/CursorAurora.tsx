@@ -12,10 +12,10 @@ export function CursorAurora() {
       frame = requestAnimationFrame(() => {
         surface.style.setProperty("--cursor-angle", `${100 + event.clientX / window.innerWidth * 55}deg`);
         surface.style.setProperty("--cursor-shift", `${event.clientY / window.innerHeight * 20}%`);
-        surface.dataset.active = "true";
+        surface.dataset['active'] = "true";
       });
     };
-    const leave = () => { surface.dataset.active = "false"; };
+    const leave = () => { surface.dataset['active'] = "false"; };
     const sync = () => {
       window.removeEventListener("pointermove", move);
       if (media.matches) window.addEventListener("pointermove", move, { passive: true });

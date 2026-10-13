@@ -6,12 +6,12 @@ import { ease } from "@/data/salon";
 export function BlurText({ text, className = "", delay = 0 }: { text: string; className?: string; delay?: number }) {
   const reduce = useReducedMotion();
   return (
-    <span className={className} aria-label={text}>
+    <span className={className.replace("text-gold-sheen", "")} aria-label={text}>
       {text.split(" ").map((word, index) => (
         <motion.span
           aria-hidden
           key={`${word}-${index}`}
-          className="inline-block"
+          className={className.includes("text-gold-sheen") ? "inline-block text-gold-sheen" : "inline-block"}
           initial={reduce ? false : { filter: "blur(10px)", opacity: 0, y: 30 }}
           whileInView={{ filter: "blur(0px)", opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
