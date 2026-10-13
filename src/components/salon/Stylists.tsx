@@ -22,9 +22,9 @@ export function Stylists({ onBook }: { onBook: (name: string) => void }) {
               className={cn("stylist-card group", i === 1 && "md:mt-20")}
               tabIndex={0}
               aria-label={`${s.name}, ${s.role}`}
-              onMouseEnter={() => setFlipped(s.name)}
-              onMouseLeave={() => setFlipped(null)}
-              onFocus={() => setFlipped(s.name)}
+              onPointerEnter={(event) => { if (event.pointerType === "mouse" && window.matchMedia("(hover: hover)").matches) setFlipped(s.name); }}
+              onPointerLeave={(event) => { if (event.pointerType === "mouse" && window.matchMedia("(hover: hover)").matches) setFlipped(null); }}
+              onFocus={(event) => { if (event.target === event.currentTarget) setFlipped(s.name); }}
               onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFlipped(null); }}
               onKeyDown={(event) => {
                 if (event.target === event.currentTarget && (event.key === "Enter" || event.key === " ")) {
