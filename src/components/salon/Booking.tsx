@@ -1,6 +1,7 @@
 import { AnimatePresence, motion, useAnimationControls, useReducedMotion } from "framer-motion";
-import { Check, LoaderCircle, X } from "lucide-react";
+import { Check, ChevronDown, LoaderCircle, X } from "lucide-react";
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { allServices, categories, ease, stylists, timeSlots } from "@/data/salon";
 import { cn } from "@/lib/utils";
 import { LuxButton, Reveal } from "./ui";
@@ -29,6 +30,13 @@ function validate(f: Form, min: string) {
 }
 
 const fieldCls = "w-full rounded-sm border border-input bg-background/40 px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:border-gold focus:outline-none";
+const selectTriggerCls = cn(
+  fieldCls,
+  "flex h-auto cursor-pointer items-center justify-between gap-3 text-left [&>svg:last-child]:h-4 [&>svg:last-child]:w-4 [&>svg:last-child]:text-gold [&>svg:last-child]:opacity-90",
+);
+const selectContentCls = "max-h-72 overflow-y-auto rounded-sm border border-gold/25 bg-obsidian/90 text-foreground shadow-deep backdrop-blur-xl";
+const selectItemCls = "cursor-pointer rounded-sm pr-8 text-sm text-foreground/90 transition-colors data-[highlighted]:bg-wine/45 data-[highlighted]:text-ivory data-[state=checked]:text-gold";
+const selectLabelCls = "px-2 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-sage";
 const labelCls = "mb-2 block text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-muted-foreground";
 
 function Field({ id, label, required, error, children }: { id: string; label: string; required?: boolean; error?: string | undefined; children: React.ReactNode }) {
@@ -132,20 +140,42 @@ export function Booking({ prefill }: { prefill: Prefill }) {
                 <input id="bk-phone" type="tel" className={fieldCls} value={form.phone} onChange={(e) => set("phone", e.target.value)} autoComplete="tel" placeholder="07700 900000" {...err("phone")} />
               </Field>
               <Field id="bk-service" label="Service" required error={errors.service}>
-                <select id="bk-service" className={fieldCls} value={form.service} onChange={(e) => set("service", e.target.value)} {...err("service")}>
-                  <option value="">Select a service</option>
-                  {categories.map((c) => (
-                    <optgroup key={c.id} label={c.label}>
-                      {c.services.map((s) => <option key={s.name} value={s.name}>{s.name} — £{s.price}</option>)}
-                    </optgroup>
-                  ))}
-                </select>
+                <Select {...(form.service ? { value: form.service } : {})} onValueChange={(v) => set("service", v)}>
+                  <SelectTrigger
+                    id="bk-service"
+                    aria-label="Service"
+                    className={cn(selectTriggerCls, errors.service && "border-destructive")}
+                    aria-invalid={!!errors.service}
+                    aria-describedby={errors.service ? "bk-service-err" : undefined}
+                  >
+                    <SelectValue placeholder="Select a service" />
+                  </SelectTrigger>
+                  <SelectContent className={selectContentCls} position="popper" sideOffset={6}>
+                    {categories.map((c) => (
+                      <SelectGroup key={c.id}>
+                        <SelectLabel className={selectLabelCls}>{c.label}</SelectLabel>
+                        {c.services.map((s) => (
+                          <SelectItem key={s.name} value={s.name} className={selectItemCls}>
+                            {s.name} — £{s.price}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    ))}
+                  </SelectContent>
+                </Select>
               </Field>
               <Field id="bk-stylist" label="Preferred stylist">
-                <select id="bk-stylist" className={fieldCls} value={form.stylist} onChange={(e) => set("stylist", e.target.value)}>
-                  <option>Any Available Stylist</option>
-                  {stylists.map((s) => <option key={s.name}>{s.name}</option>)}
-                </select>
+                <Select value={form.stylist} onValueChange={(v) => set("stylist", v)}>
+                  <SelectTrigger id="bk-stylist" aria-label="Preferred stylist" className={selectTriggerCls}>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className={selectContentCls} position="popper" sideOffset={6}>
+                    <SelectItem value="Any Available Stylist" className={selectItemCls}>Any Available Stylist</SelectItem>
+                    {stylists.map((s) => (
+                      <SelectItem key={s.name} value={s.name} className={selectItemCls}>{s.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </Field>
               <Field id="bk-date" label="Preferred date" required error={errors.date}>
                 <input id="bk-date" type="date" min={min || undefined} className={cn(fieldCls, "[color-scheme:dark]")} value={form.date} onChange={(e) => set("date", e.target.value)} {...err("date")} />

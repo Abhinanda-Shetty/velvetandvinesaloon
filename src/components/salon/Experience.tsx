@@ -22,20 +22,20 @@ export function Experience() {
   return (
     <section id="experience" ref={ref} className="relative bg-ivory py-28 text-ink sm:py-36">
       <div className="mx-auto grid max-w-7xl gap-16 px-6 lg:grid-cols-2 lg:gap-20">
-        <div className="relative min-h-[520px] sm:min-h-[640px]">
+        <div className="relative">
           <motion.div
             initial={{ clipPath: "inset(0 100% 0 0)" }}
             whileInView={{ clipPath: "inset(0 0% 0 0)" }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: "0px", amount: 0.15 }}
             transition={{ duration: 1.4, ease }}
-            className="absolute left-0 top-0 aspect-[4/5] w-[78%] overflow-hidden rounded-sm shadow-deep"
+            className="relative aspect-[4/5] w-full overflow-hidden rounded-sm shadow-deep"
           >
             <img src={interior} alt="Velvet & Vine salon interior with burgundy velvet chairs and brass mirrors" loading="lazy" className="h-full w-full object-cover" />
           </motion.div>
-          <motion.div style={{ y: y1 }} className="absolute bottom-6 right-0 aspect-square w-[44%] overflow-hidden rounded-sm border-4 border-ivory shadow-deep">
+          <motion.div style={{ y: y1 }} className="absolute right-0 bottom-6 aspect-square w-[42%] overflow-hidden rounded-sm border-4 border-ivory shadow-deep">
             <img src={products} alt="Premium haircare products on dark marble" loading="lazy" className="h-full w-full object-cover" />
           </motion.div>
-          <motion.div style={{ y: y2 }} className="absolute -bottom-10 left-[30%] hidden aspect-[3/4] w-[30%] overflow-hidden rounded-sm border-4 border-ivory shadow-deep sm:block">
+          <motion.div style={{ y: y2 }} className="absolute -bottom-12 left-[6%] hidden aspect-[3/4] w-[28%] overflow-hidden rounded-sm border-4 border-ivory shadow-deep sm:block">
             <img src={styling} alt="Stylist finishing a blow-dry with a round brush" loading="lazy" className="h-full w-full object-cover" />
           </motion.div>
         </div>
