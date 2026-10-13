@@ -1,9 +1,7 @@
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
 import interior from "@/assets/salon-interior.jpg";
-import products from "@/assets/products.jpg";
-import styling from "@/assets/styling-detail.jpg";
-import { ease } from "@/data/salon";
+import artistry from "@/assets/experience-artistry.jpg";
+import ritual from "@/assets/experience-ritual.jpg";
+import { CircularCarousel } from "./CircularCarousel";
 import { Reveal } from "./ui";
 
 const principles = [
@@ -13,54 +11,37 @@ const principles = [
 ];
 
 export function Experience() {
-  const ref = useRef<HTMLElement>(null);
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y1 = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [60, -60]);
-  const y2 = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [120, -40]);
-
   return (
-    <section id="experience" ref={ref} className="relative bg-ivory py-28 text-ink sm:py-36">
-      <div className="mx-auto grid max-w-7xl gap-16 px-6 lg:grid-cols-2 lg:gap-20">
-        <div className="relative">
-          <motion.div
-            initial={{ clipPath: "inset(0 100% 0 0)" }}
-            whileInView={{ clipPath: "inset(0 0% 0 0)" }}
-            viewport={{ once: true, margin: "0px", amount: 0.15 }}
-            transition={{ duration: 1.4, ease }}
-            className="relative aspect-[4/5] w-full overflow-hidden rounded-sm shadow-deep"
-          >
-            <img src={interior} alt="Velvet & Vine salon interior with burgundy velvet chairs and brass mirrors" loading="lazy" className="h-full w-full object-cover" />
-          </motion.div>
-          <motion.div style={{ y: y1 }} className="absolute right-0 bottom-6 aspect-square w-[42%] overflow-hidden rounded-sm border-4 border-ivory shadow-deep">
-            <img src={products} alt="Premium haircare products on dark marble" loading="lazy" className="h-full w-full object-cover" />
-          </motion.div>
-          <motion.div style={{ y: y2 }} className="absolute -bottom-12 left-[6%] hidden aspect-[3/4] w-[28%] overflow-hidden rounded-sm border-4 border-ivory shadow-deep sm:block">
-            <img src={styling} alt="Stylist finishing a blow-dry with a round brush" loading="lazy" className="h-full w-full object-cover" />
-          </motion.div>
-        </div>
-
-        <div className="flex flex-col justify-center">
+    <section id="experience" className="experience-section relative overflow-hidden py-20 text-foreground sm:py-24">
+      <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
+        <div className="min-w-0 lg:order-2">
           <Reveal>
-            <p className="eyebrow text-wine">The Experience</p>
-            <h2 className="display mt-6 text-5xl sm:text-6xl lg:text-7xl">A Little Luxury, <em className="text-wine">Just for You.</em></h2>
-            <p className="mt-8 max-w-lg leading-relaxed text-ink/70">
+            <p className="eyebrow">The Experience</p>
+            <h2 className="display mt-6 text-5xl sm:text-6xl lg:text-7xl">A Little Luxury, <em className="text-gold-sheen">Just for You.</em></h2>
+            <p className="mt-6 max-w-lg leading-relaxed text-muted-foreground">
               We believe great hair begins with listening. Each appointment is shaped by a personal consultation, celebrating your individual expression and delivered with attentive, unhurried care — in surroundings designed to let you breathe out.
             </p>
           </Reveal>
-          <ol className="mt-12 space-y-8">
+          <ol className="mt-8 space-y-5">
             {principles.map((p, i) => (
               <Reveal key={p.n} delay={i * 0.1}>
-                <li className="grid grid-cols-[3rem_1fr] gap-4 border-t border-ink/15 pt-6">
-                  <span className="display text-2xl italic text-wine">{p.n}</span>
+                <li className="grid grid-cols-[2rem_1fr] gap-4 border-t border-border pt-5">
+                  <span className="display text-2xl italic text-gold">{p.n}</span>
                   <div>
-                    <h3 className="display text-3xl">{p.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-ink/65">{p.copy}</p>
+                    <h3 className="display text-2xl">{p.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.copy}</p>
                   </div>
                 </li>
               </Reveal>
             ))}
           </ol>
+        </div>
+        <div className="min-w-0 lg:order-1">
+          <CircularCarousel items={[
+            { src: artistry, alt: "Precision haircut with steel scissors in a burgundy salon", title: "The Artistry", subtitle: "Considered craftsmanship" },
+            { src: interior, alt: "Burgundy velvet chairs and brass mirrors in the salon", title: "The Sanctuary", subtitle: "Space to unwind" },
+            { src: ritual, alt: "Relaxing hair wash with brass fittings and soft towels", title: "The Ritual", subtitle: "Care in every detail" },
+          ]} />
         </div>
       </div>
     </section>

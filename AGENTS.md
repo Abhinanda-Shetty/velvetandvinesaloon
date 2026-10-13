@@ -16,3 +16,4 @@
 - Stylist cards use two inert, backface-hidden faces with hover, keyboard and tap state — keeps hidden controls out of keyboard navigation.
 - Motion primitives live in salon components; React Bits adaptations use the existing Framer Motion dependency and semantic CSS gradients — avoids duplicate animation runtimes and keeps them themeable.
 - Review scrolling uses duplicated CSS tracks with pause controls and a static reduced-motion alternative — keeps the loop seamless and accessible.
+- The Experience cylinder gallery uses CSS 3D transforms, pauses offscreen and on hover/focus, and becomes a static strip for reduced motion — keeps rotating imagery lightweight without another WebGL canvas.
